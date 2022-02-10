@@ -11,7 +11,8 @@
     "prop-types": "^15.5.4",
     "rc-field-form": ">0.0.1",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "swr": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",

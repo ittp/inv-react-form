@@ -1,3 +1,6 @@
 import React from 'react';
+import { Form, Input } from 'antd';
 
-export default ({ name }) => <h1>Hello {name}!</h1>;
+let InputField = ({ name }) => <Input defaultValue={name} name="test" />;
+
+export default InputField;
