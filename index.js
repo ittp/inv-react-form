@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, setState } from 'react';
 import { render } from 'react-dom';
 import Hello from './Hello';
 import './style.css';
 import {
+  
   Typography,
   Table,
   Layout,
@@ -26,50 +27,98 @@ const {} = List;
 // const { Header } = ;
 
 const { Paragraph } = Typography;
-const edd = (a) => (
-  <Paragraph
-    editable={{
-      tooltip: false,
-      text: '111',
-      onChange: (title) => {
-        console.log(title);
-      },
-    }}
-  >
-    {a}
-  </Paragraph>
-);
+
+const columns = {
+  id: 'ID',
+  key: 'УНО',
+  type: 'Тип',
+  manufacturer: 'Производитель',
+  model: 'Модель',
+  serial: 'SN',
+  inventory: 'Инв. номер',
+  year: 'Год',
+  place: 'Место',
+};
+
+const createColumns = async (config) => {
+  return Object.keys(config).map((i, key) => {
+    const column = { key, dataIndex: i, title: columns[i] }
+    console.log(column);
+    return column
+  });
+};
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      name: 'React',
-      types: {},
-      dbs: [
-        {
-          key: 1,
-          org: 1,
-          year: 2021,
-          db: 'db.db',
-        },
+      columns: [
+        { key: 1, title: 1, dataIndex: 'key'}
       ],
+      dataSource: []
     };
   }
 
+  handleUpdate(data) {
+    console.log(data)
+  }
+
+  handleSave() {
+
+  }
+
+  handleImport() {
+
+  }
+  
+  handleExport() {
+
+  }
+
+  handleSearch() {
+    
+  }
+
+  createColumns(config)
+ 
+  columns = {
+    id: 'ID',
+    key: 'УНО',
+    type: 'Тип',
+    manufacturer: 'Производитель',
+    model: 'Модель',
+    serial: 'SN',
+    inventory: 'Инв. номер',
+    year: 'Год',
+    place: 'Место',
+  };
+  
+  createColumns = async (config) => {
+    return Object.keys(config).map((i, key) => {
+      const column = { key, dataIndex: i, title: columns[i] }
+      console.log(column);
+      return column
+    });
+  }
+  
+  
   render() {
+    let cols = createColumns(columns)
+    this.setState({ columns: [{ key:1, title: "we"}]})
+
+    let state = this.state
+    state.setState
+    console.log(state)
     return (
       <Layout>
         <Header></Header>
         <Form>
-          <PageHeader title={<Input />} extra={<Button>V</Button>} />
+          <PageHeader title={<Input />} extra={<Button>+</Button>} />
         </Form>
         <Content>
-          <Table>
-            <tr>
-              <td>1</td>
-            </tr>
-          </Table>
+          <Table columns={this.state.columns}></Table>
         </Content>
+
         <Footer>
           <h3>Config</h3>
         </Footer>
