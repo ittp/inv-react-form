@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Hello from './Hello';
+
+import HeaderView from './components/Header';
+import SettingsView from './components/Settings';
+import TableView from './components/Table';
+
 import './style.css';
+
 import {
   Typography,
   Table,
@@ -25,6 +30,7 @@ import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 const { Sidebar, Header, Content, Footer } = Layout;
 import swr from 'swr';
 const {} = List;
+
 // const { Header } = ;
 
 const { Paragraph } = Typography;
@@ -48,10 +54,19 @@ const createColumns = async (config) => {
     return column;
   });
 };
+const data = require('./data.js');
+const config = require('./config/config');
+
+const editItem = ({ item }) => {
+  console.log(item);
+  return <Input defaultValue={1} />;
+};
 
 class App extends Component {
   constructor() {
     super();
+    this.config = config;
+    this.data = data;
     this.columns = {
       id: 'ID',
       key: 'УНО',
@@ -87,7 +102,14 @@ class App extends Component {
   componentWillUpdate() {
     console.log('update');
   }
+
+  // device = () => {
+  //   this.data.map((i) => async (i, k) => {
+  //     console.log(i.manufacturer);
+  //   });
+  // };
   render() {
+    console.log(this.data);
     // let cols = createColumns(columns)
     // columns.map((i) => {
     //   console.log(columns);
@@ -96,17 +118,34 @@ class App extends Component {
 
     return (
       <Layout>
-        <Header></Header>
-        <Form>
-          <PageHeader title={<Input />} extra={<Button>+</Button>} />
-        </Form>
         <Content>
           <Table
+            dataSource={data}
             columns={[
-              { key: 1, title: 1 },
-              { key: 2, title: 2 },
-              { key: 3, title: 3 },
-              { key: 4, title: 4 },
+              { key: 1, title: 'УНО', dataIndex: 'uno' },
+              { key: 2, title: 2, dataIndex: 'type' },
+              { key: 3, title: 3, dataIndex: 'manufacturer' },
+              { key: 4, title: 4, dataIndex: 'model' },
+              {
+                key: 6,
+                title: 6,
+                dataIndex: 'serial',
+                onClick: (i, o) => {
+                  console.log('click');
+                  console.log(o);
+                },
+                render: (i, o) => (
+                  <>
+                    <div>{i}</div>
+                    <div>{o.inventory}</div>
+                  </>
+                ),
+                // render: (d, i) => {
+                //   console.log(d);
+                //   return <Input defaultValue={i.serial} />;
+                // },
+              },
+
               { key: 5, title: 5 },
               { key: 6, title: 6 },
               {
@@ -123,7 +162,16 @@ class App extends Component {
         </Content>
 
         <Footer>
-          <h3>Config</h3>
+          <h4>Config</h4>
+          <FormBuilder
+            meta={{
+              key: 'config',
+              name: 'c',
+              widget: 'select',
+              options: [{ key: 1, value: 1 }],
+              placeholder: 'config',
+            }}
+          />
         </Footer>
       </Layout>
     );
