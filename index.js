@@ -1,9 +1,8 @@
-import React, { Component, setState } from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import Hello from './Hello';
 import './style.css';
 import {
-  
   Typography,
   Table,
   Layout,
@@ -18,6 +17,7 @@ import {
   AutoComplete,
   Upload,
   List,
+  Grid,
 } from 'antd';
 import FormBuilder from 'antd-form-builder';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
@@ -42,73 +42,57 @@ const columns = {
 
 const createColumns = async (config) => {
   return Object.keys(config).map((i, key) => {
-    const column = { key, dataIndex: i, title: columns[i] }
+    const column = { key, dataIndex: i, title: columns[i] };
     console.log(column);
-    return column
+    return column;
   });
 };
 
 class App extends Component {
   constructor() {
     super();
+    this.columns = {
+      id: 'ID',
+      key: 'УНО',
+      type: 'Тип',
+      manufacturer: 'Производитель',
+      model: 'Модель',
+      serial: 'SN',
+      inventory: 'Инв. номер',
+      year: 'Год',
+      place: 'Место',
+    };
+    this.settings = [];
     this.state = {
-      columns: [
-        { key: 1, title: 1, dataIndex: 'key'}
-      ],
-      dataSource: []
+      columns: [],
+      dataSource: [],
     };
   }
 
+  cols = '';
+
   handleUpdate(data) {
-    console.log(data)
+    console.log(data);
   }
 
-  handleSave() {
+  handleSave() {}
 
+  handleImport() {}
+
+  handleExport() {}
+
+  handleSearch() {}
+
+  componentWillUpdate() {
+    console.log('update');
   }
-
-  handleImport() {
-
-  }
-  
-  handleExport() {
-
-  }
-
-  handleSearch() {
-    
-  }
-
-  createColumns(config)
- 
-  columns = {
-    id: 'ID',
-    key: 'УНО',
-    type: 'Тип',
-    manufacturer: 'Производитель',
-    model: 'Модель',
-    serial: 'SN',
-    inventory: 'Инв. номер',
-    year: 'Год',
-    place: 'Место',
-  };
-  
-  createColumns = async (config) => {
-    return Object.keys(config).map((i, key) => {
-      const column = { key, dataIndex: i, title: columns[i] }
-      console.log(column);
-      return column
-    });
-  }
-  
-  
   render() {
-    let cols = createColumns(columns)
-    this.setState({ columns: [{ key:1, title: "we"}]})
+    // let cols = createColumns(columns)
+    // columns.map((i) => {
+    //   console.log(columns);
+    //   return { key: i, dataIndex: 1, title: this.columns[i] };
+    // });
 
-    let state = this.state
-    state.setState
-    console.log(state)
     return (
       <Layout>
         <Header></Header>
@@ -116,7 +100,25 @@ class App extends Component {
           <PageHeader title={<Input />} extra={<Button>+</Button>} />
         </Form>
         <Content>
-          <Table columns={this.state.columns}></Table>
+          <Table
+            columns={[
+              { key: 1, title: 1 },
+              { key: 2, title: 2 },
+              { key: 3, title: 3 },
+              { key: 4, title: 4 },
+              { key: 5, title: 5 },
+              { key: 6, title: 6 },
+              {
+                key: 7,
+                title: 7,
+                type: '',
+                onRow: (data) => {
+                  console.log(data);
+                  return '1';
+                },
+              },
+            ]}
+          ></Table>
         </Content>
 
         <Footer>
